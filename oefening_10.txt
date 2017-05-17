@@ -1,0 +1,7 @@
+SELECT gene_name,(seq_region_end - seq_region_start + 1) AS size FROM gene LIMIT 1; 
+
+gene_name	size
+TRDD1		8
+
+SELECT gene.gene_name,count(transcript.transcript_ID) FROM gene JOIN transcript ON gene.gene_id = transcript.gene_id ORDER BY count(transcript.transcript_ID) desc LIMIT 1; 
+
