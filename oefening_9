@@ -1,0 +1,75 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+USE `mydb` ;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Gene`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Gene` (
+  `idGene` INT UNSIGNED NOT NULL,
+  `gene_name` VARCHAR(45) NULL,
+  `start` INT UNSIGNED NULL,
+  `stop` INT UNSIGNED NULL,
+  `chromosome` INT UNSIGNED NULL,
+  `Patient_id` INT UNSIGNED NULL,
+  PRIMARY KEY (`idGene`),
+  INDEX `Patient_idx` (`Patient_id` ASC),
+  CONSTRAINT `Patient`
+    FOREIGN KEY (`Patient_id`)
+    REFERENCES `mydb`.`Patient` (`idPatient`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Patient`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Patient` (
+  `idPatient` INT UNSIGNED NOT NULL,
+  `Name` VARCHAR(45) NOT NULL,
+  `Geslacht` ENUM('M', 'V') NULL,
+  `Leeftijd_diagnose` INT UNSIGNED NULL,
+  PRIMARY KEY (`idPatient`),
+  UNIQUE INDEX `idPatient_UNIQUE` (`idPatient` ASC),
+  CONSTRAINT ``
+    FOREIGN KEY ()
+    REFERENCES `mydb`.`Gene` ()
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Mutatie`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Mutatie` (
+  `idMutatie` INT NOT NULL,
+  `Mutatie` VARCHAR(45) NULL,
+  `Patient_syndrome` VARCHAR(45) NULL,
+  `Patient_ID` INT UNSIGNED NULL,
+  INDEX `mutatie_idx` (`Patient_ID` ASC),
+  CONSTRAINT `mutatie`
+    FOREIGN KEY (`Patient_ID`)
+    REFERENCES `mydb`.`Patient` (`idPatient`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
